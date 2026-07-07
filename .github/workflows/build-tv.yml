@@ -24,16 +24,18 @@ jobs:
       - name: Build Phone Debug APK
         run: ./gradlew :phone:assembleDebug
 
-      - name: Build TV Debug APK
-        run: ./gradlew :tv:assembleDebug
-
       - name: Upload Phone APKs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: jellycine-phone-debug-apks
           path: phone/build/outputs/apk/debug/*.apk
 
+      - name: Build TV Debug APK
+        run: ./gradlew :tv:assembleDebug
+
       - name: Upload TV APKs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: jellycine-tv-debug-apks
